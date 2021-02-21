@@ -1,4 +1,4 @@
 #ignore object files
 *.o
-*.exe
-*.com
+*.a
+circle
