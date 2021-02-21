@@ -1,2 +1,2 @@
-geometry: mihail_kryg.c
-	gcc -Wall -Werror -o geometry mihail_kryg.c
+geometry: circle.c
+	gcc -Wall -Werror -o geometry circle.c
