@@ -1,19 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define N 50
-#define M 10
 #include <math.h>
+
 
 int main()
 {
-    int r = 0;
+    int r;
     float s = 0, p = 0;
-    char r_arr[N];
-    char input_arr[N] = {0};
-    FILE *fptr = NULL;
+    FILE* pointer = NULL;
 
-    fptr = fopen("geometry.txt", "r");
-    if (!fptr)
+    char a[N] = { 0 };
+    char arr[N] = { 0 };
+
+
+    pointer = fopen("geometry.txt", "r");
+    if (!pointer)
     {
         printf("Can`t open the file\n");
     }
@@ -23,89 +25,57 @@ int main()
 
         while (i < N)
         {
-            fscanf(fptr, "%c", &input_arr[i]);
+            fscanf(pointer, "%c", &a[i]);
             ++i;
         }
     }
 
-    fclose(fptr); //записали строку из файла в массив а
+    fclose(pointer); 
+    
 
-    char name_of_figure[6] = "Circle";
-    int k = 0, t = 0;
-    for(int i = 0; i < 6; i++)
+    for (int i = 0; i != '\0'; i++)
     {
-        if(input_arr[i] != name_of_figure[i])
+        if((a[i] != 'C') && (a[i] != 'i') && (a[i] != 'r') && (a[i] != 'c') && (a[i] != 'l') && (a[i] != 'e') && (a[i] != '0') && (a[i] != '1') && (a[i] != '2') && (a[i] != '3') && 
+        (a[i] != '4') && (a[i] != '5') && (a[i] != '6') && (a[i] != '7') && (a[i] != '8') && (a[i] != '9'))
         {
-            k = k + 1;
-            break;
-        }
-    } // выполнили проверку имени фигуры
-
-    for(int i = 7; i < 14; i++) // 4 10, 3
-    {
-        if((input_arr[i] != '0') && (input_arr[i] != '1') && (input_arr[i] != '2') && (input_arr[i] != '3') && (input_arr[i] !='4') &&
-        (input_arr[i] != '5') && (input_arr[i] != '6') && (input_arr[i] != '7') && (input_arr[i] != '8') && (input_arr[i] != '9') &&
-        (input_arr[i] != ',') && (input_arr[i] != ' ') && (input_arr[i] != ')') && (input_arr[i] != '('))
-        {
-            t = 1;
-            break;
-        }
-
-
-    } // выполнили проверку того, что в скобках
-
-
-    if (k > 0)
-    {
-        for(int i = 0; i < N; i++)
-        {
-            printf("%c", input_arr[i]);
-        }
-        printf("incorrect name of figure\n");
-        printf("please correct\n"); // ошибка об имени
-
-    }
-    else
-    {
-        if (t == 1)
-        {
-            for(int i = 0; i < N; i++)
+            for(int j = 0; j < N; j++)
             {
-                printf("%c", input_arr[i]);
+                 printf("%c", a[j]);
             }
-            printf("invalid values\n");
-            printf("please correct\n"); // ошибка о значениях
+            printf("invalid input\n");
+            break;
+      
         }
         else
-        {          
+        {
+            int j = 0;
+            for (int i = 0; i < N - 1; i++) 
+            {
+                if ((a[i] == ',') && (a[i + 1] == ' '))
+                {
+                    for (j = i; a[j + 1] != ')'; j++)
+                    {
+                        arr[j - i] = a[j + 1];
+                    }
+                }   
+
+            }
+
+
+            r = arr[3] - '0';
+
+            s = 3.14 * r * r;
+
+            p = 2 * 3.14 * r;
 
             for (int i = 0; i < N; i++)
             {
-                if ((input_arr[i] == ',') && (input_arr[i + 1] == ' '))
-                {
-                    for (int k = i; input_arr[k + 1] != ')'; k++)
-                    {
-                        r_arr[k - i] = input_arr[k + 1];
-                    }
-                }
-
+                printf("%c", a[i]);
             }
-            r = atoi(r_arr);
-
-            s = M_PI * r * r;
-
-            p = 2 * M_PI * r;
-
             printf("\n");
-            for(int i = 0; i < N; i++)
-            {
-                printf("%c", input_arr[i]);
-            }
-
-            printf("area = %.3f\n",s);
-            printf("perimeter = %.3f\n",p);
+            printf("area = %.2f\n", s);
+            printf("perimeter = %.2f\n", p);
         }
-
     }
 
 
